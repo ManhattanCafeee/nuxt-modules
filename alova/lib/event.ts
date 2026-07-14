@@ -26,7 +26,10 @@ export class BizError extends Error {
     public request: RequestInfo,
     public data: unknown,
   ) {
-    super('Business error')
+    const msg = data && typeof data === 'object'
+      ? (data as Record<string, unknown>).message
+      : undefined
+    super(typeof msg === 'string' ? msg : '业务错误')
   }
 }
 
